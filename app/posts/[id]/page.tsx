@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { fetchCMSPost } from "@/lib/cms";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 // Fallback dummy data for when CMS has no content
 const SINGLE_IMAGE = 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1000&auto=format&fit=crop';
@@ -122,13 +124,102 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
         </header>
 
         <div className="prose prose-lg md:prose-xl prose-stone max-w-none text-[#4a3f35] leading-relaxed font-serif">
-          <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-[#362a22] first-letter:mr-3 first-letter:float-left">
-            {post.content || post.excerpt}
-          </p>
-          {!cmsPost && (
-            <p className="mt-6">
-              ഇതൊരു ഡെമോ പോസ്റ്റ് ആയതുകൊണ്ട് കൂടുതൽ വിവരങ്ങൾ ഇവിടെ ലഭ്യമല്ല. എങ്കിലും ഈ ഡിസൈൻ നിങ്ങൾക്ക് ഇഷ്ടമായെന്ന് കരുതുന്നു. തുടർന്നും വായിക്കാൻ താല്പര്യമുണ്ടെങ്കിൽ തിരികെ പോയി മറ്റ് ലേഖനങ്ങൾ വായിക്കാവുന്നതാണ്.
-            </p>
+          {cmsPost ? (
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                p: ({ children, ...props }) => (
+                  <p className="mb-6 leading-relaxed text-[#4a3f35]" {...props}>
+                    {children}
+                  </p>
+                ),
+                h1: ({ children, ...props }) => (
+                  <h1 className="text-3xl md:text-4xl font-bold font-serif text-[#362a22] mt-10 mb-4" {...props}>
+                    {children}
+                  </h1>
+                ),
+                h2: ({ children, ...props }) => (
+                  <h2 className="text-2xl md:text-3xl font-bold font-serif text-[#362a22] mt-8 mb-3" {...props}>
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children, ...props }) => (
+                  <h3 className="text-xl md:text-2xl font-semibold font-serif text-[#362a22] mt-6 mb-2" {...props}>
+                    {children}
+                  </h3>
+                ),
+                h4: ({ children, ...props }) => (
+                  <h4 className="text-lg font-semibold font-serif text-[#5a483a] mt-5 mb-2" {...props}>
+                    {children}
+                  </h4>
+                ),
+                blockquote: ({ children, ...props }) => (
+                  <blockquote className="border-l-4 border-[#a08060] pl-6 my-6 italic text-[#7a6552] text-xl font-serif" {...props}>
+                    {children}
+                  </blockquote>
+                ),
+                ul: ({ children, ...props }) => (
+                  <ul className="list-disc list-inside mb-6 space-y-1 text-[#4a3f35]" {...props}>
+                    {children}
+                  </ul>
+                ),
+                ol: ({ children, ...props }) => (
+                  <ol className="list-decimal list-inside mb-6 space-y-1 text-[#4a3f35]" {...props}>
+                    {children}
+                  </ol>
+                ),
+                li: ({ children, ...props }) => (
+                  <li className="leading-relaxed" {...props}>
+                    {children}
+                  </li>
+                ),
+                strong: ({ children, ...props }) => (
+                  <strong className="font-bold text-[#362a22]" {...props}>
+                    {children}
+                  </strong>
+                ),
+                em: ({ children, ...props }) => (
+                  <em className="italic text-[#5a483a]" {...props}>
+                    {children}
+                  </em>
+                ),
+                hr: (props) => (
+                  <hr className="my-8 border-t-2 border-[#c4aa8a]/40" {...props} />
+                ),
+                a: ({ children, href, ...props }) => (
+                  <a
+                    href={href}
+                    className="text-[#7a4a2a] underline underline-offset-2 hover:text-[#362a22] transition-colors"
+                    target={href?.startsWith('http') ? '_blank' : undefined}
+                    rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    {...props}
+                  >
+                    {children}
+                  </a>
+                ),
+                code: ({ children, ...props }) => (
+                  <code className="bg-[#c4aa8a]/20 text-[#362a22] px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                    {children}
+                  </code>
+                ),
+                pre: ({ children, ...props }) => (
+                  <pre className="bg-[#362a22] text-[#e2d1bf] rounded-xl p-4 overflow-x-auto my-6 text-sm font-mono" {...props}>
+                    {children}
+                  </pre>
+                ),
+              }}
+            >
+              {post.content || post.excerpt || ''}
+            </ReactMarkdown>
+          ) : (
+            <>
+              <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-[#362a22] first-letter:mr-3 first-letter:float-left mb-6 leading-relaxed">
+                {post.content || post.excerpt}
+              </p>
+              <p className="mt-6 leading-relaxed">
+                ഇതൊരു ഡെമോ പോസ്റ്റ് ആയതുകൊണ്ട് കൂടുതൽ വിവരങ്ങൾ ഇവിടെ ലഭ്യമല്ല. എങ്കിലും ഈ ഡിസൈൻ നിങ്ങൾക്ക് ഇഷ്ടമായെന്ന് കരുതുന്നു. തുടർന്നും വായിക്കാൻ താല്പര്യമുണ്ടെങ്കിൽ തിരികെ പോയി മറ്റ് ലേഖനങ്ങൾ വായിക്കാവുന്നതാണ്.
+              </p>
+            </>
           )}
         </div>
       </article>
