@@ -23,6 +23,7 @@ export default function Home() {
             src="/hero.png"
             alt="Hero"
             fill
+            sizes="100vw"
             className="object-contain object-bottom md:object-center drop-shadow-lg"
             priority
           />

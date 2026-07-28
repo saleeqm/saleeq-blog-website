@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PostCard from './PostCard';
 import Link from 'next/link';
+import { fetchCMSPosts, CMSPost } from '../../lib/cms';
 
 const IMG_NATURE = 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1000&auto=format&fit=crop';
 const IMG_WRITING = 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1000&auto=format&fit=crop';
@@ -108,11 +109,35 @@ const DUMMY_POSTS = [
 
 export default function PostsSection() {
   const [selectedCategory, setSelectedCategory] = useState('എല്ലാം');
+  const [posts, setPosts] = useState<CMSPost[]>(DUMMY_POSTS);
+  const [loading, setLoading] = useState(true);
+  const [isFromCMS, setIsFromCMS] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadPosts() {
+      const cmsPosts = await fetchCMSPosts();
+      if (isMounted) {
+        if (cmsPosts && cmsPosts.length > 0) {
+          setPosts(cmsPosts);
+          setIsFromCMS(true);
+        } else {
+          setPosts(DUMMY_POSTS);
+          setIsFromCMS(false);
+        }
+        setLoading(false);
+      }
+    }
+    loadPosts();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const filteredPosts =
     selectedCategory === 'എല്ലാം'
-      ? DUMMY_POSTS
-      : DUMMY_POSTS.filter((post) => post.category === selectedCategory);
+      ? posts
+      : posts.filter((post) => post.category === selectedCategory);
 
   return (
     <section id="latest-posts" className="w-full flex flex-col py-24 md:py-32">
@@ -157,14 +182,14 @@ export default function PostsSection() {
             id={post.id}
             category={post.category}
             title={post.title}
-            date={post.date}
-            imageUrl={post.imageUrl}
+            date={post.date || 'May 2025'}
+            imageUrl={post.imageUrl || IMG_NATURE}
           />
         ))}
       </div>
 
       {/* Empty State fallback */}
-      {filteredPosts.length === 0 && (
+      {!loading && filteredPosts.length === 0 && (
         <div className="py-16 text-center text-[#7a6552] font-serif text-lg italic">
           ഈ വിഭാഗത്തിൽ പുതിയ സൃഷ്ടികൾ ഉടൻ പ്രതീക്ഷിക്കാം...
         </div>
