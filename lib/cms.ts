@@ -12,6 +12,52 @@ export interface CMSPost {
 
 const CMS_API_URL = process.env.NEXT_PUBLIC_CMS_API_URL || 'http://localhost:8787';
 
+function formatDisplayDate(rawDate?: string, fallbackTimestamp?: string): string {
+  if (rawDate) {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(rawDate)) {
+      const [year, month, day] = rawDate.split('-').map(Number);
+      const d = new Date(Date.UTC(year, month - 1, day));
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+    }
+    const d = new Date(rawDate);
+    if (!isNaN(d.getTime())) {
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    return rawDate;
+  }
+  if (fallbackTimestamp) {
+    const d = new Date(fallbackTimestamp);
+    if (!isNaN(d.getTime())) {
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+  }
+  return 'May 2025';
+}
+
+function normalizeImageUrl(val: any): string {
+  if (!val) return '';
+  if (Array.isArray(val)) {
+    return normalizeImageUrl(val[0]);
+  }
+  if (typeof val === 'object') {
+    return normalizeImageUrl(val.url || val.path || val.src || val.filename || '');
+  }
+  const str = String(val).trim();
+  if (!str) return '';
+  // CMS returns relative paths like /files/uploads/... for uploaded media.
+  // Rewrite them to /cms-files/... so Next.js proxies the request to the CMS
+  // backend — avoiding its private-IP SSRF guard on the image optimizer.
+  if (str.startsWith('/files/')) {
+    return `/cms-files/${str.slice('/files/'.length)}`;
+  }
+  // Handle full http://localhost:8787/files/... URLs returned in some CMS versions
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/files\//.test(str)) {
+    const url = new URL(str);
+    return `/cms-files/${url.pathname.slice('/files/'.length)}`;
+  }
+  return str;
+}
+
 export async function fetchCMSPosts(): Promise<CMSPost[]> {
   try {
     const res = await fetch(`${CMS_API_URL}/api/posts`, {
@@ -42,8 +88,8 @@ export async function fetchCMSPosts(): Promise<CMSPost[]> {
       title: item.title || item.data?.title || 'സീർഷകമില്ലാത്ത സൃഷ്ടി',
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'ലേഖനങ്ങൾ',
-      date: item.date || item.data?.date || (item.createdAt ? new Date(item.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'May 2025'),
-      imageUrl: item.imageUrl || item.data?.imageUrl || item.coverImage || '',
+      date: formatDisplayDate(item.date || item.data?.date, item.createdAt || item.created_at),
+      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
     }));
@@ -71,8 +117,8 @@ export async function fetchCMSPost(id: string): Promise<CMSPost | null> {
       title: item.title || item.data?.title || '',
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'ലേഖനങ്ങൾ',
-      date: item.date || item.data?.date || (item.created_at ? new Date(item.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'May 2025'),
-      imageUrl: item.imageUrl || item.data?.imageUrl || item.coverImage || '',
+      date: formatDisplayDate(item.date || item.data?.date, item.created_at || item.createdAt),
+      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
     };
