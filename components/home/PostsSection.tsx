@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import PostCard from './PostCard';
 import Link from 'next/link';
-import { fetchCMSPosts, CMSPost } from '../../lib/cms';
+import { fetchCMSPostsClient, CMSPost } from '../../lib/cms';
 
 const IMG_NATURE = 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1000&auto=format&fit=crop';
 const IMG_WRITING = 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1000&auto=format&fit=crop';
@@ -116,7 +116,7 @@ export default function PostsSection() {
   useEffect(() => {
     let isMounted = true;
     async function loadPosts() {
-      const cmsPosts = await fetchCMSPosts();
+      const cmsPosts = await fetchCMSPostsClient();
       if (isMounted) {
         if (cmsPosts && cmsPosts.length > 0) {
           setPosts(cmsPosts);
