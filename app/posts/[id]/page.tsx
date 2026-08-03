@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { fetchCMSPost } from "@/lib/cms";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 // Fallback dummy data for when CMS has no content
 const SINGLE_IMAGE = 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1000&auto=format&fit=crop';
@@ -127,6 +128,7 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
           {cmsPost ? (
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
               components={{
                 p: ({ children, ...props }) => (
                   <p className="mb-6 leading-relaxed text-[#4a3f35]" {...props}>

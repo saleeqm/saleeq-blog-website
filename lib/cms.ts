@@ -17,10 +17,45 @@ const CMS_API_URL = process.env.NEXT_PUBLIC_CMS_API_URL || 'http://localhost:878
 // Server components can call the CMS directly since server-side Node.js has no CORS.
 const CMS_CLIENT_URL = '/api/cms';
 
-function formatDisplayDate(rawDate?: string, fallbackTimestamp?: string): string {
+/**
+ * Pull the best available date string from a CMS content item.
+ *
+ * SonicJS stores the publication date at `data.publishedAt` as an ISO-ish string
+ * (e.g. "2016-08-02T14:22"). Other fields like `date`, `createdAt`, `created_at`,
+ * or `publishedAt` at the top level may also exist. We try them in priority order.
+ */
+function extractDateString(item: any): string | undefined {
+  const d = item.data;
+  return (
+    item.date
+    || d?.date
+    || d?.publishedAt
+    || item.publishedAt
+    || undefined
+  );
+}
+
+/**
+ * Get a fallback timestamp (milliseconds since epoch) from a CMS content item.
+ */
+function extractFallbackTimestamp(item: any): string | number | undefined {
+  return item.createdAt || item.created_at || item.publishedAt || undefined;
+}
+
+/**
+ * Format a date for display. Accepts:
+ * - ISO date-only strings ("2025-05-18")
+ * - ISO datetime strings ("2016-08-02T14:22")
+ * - Fallback millisecond timestamps
+ *
+ * Always returns a plain date (no time component).
+ */
+function formatDisplayDate(rawDate?: string, fallbackTimestamp?: string | number): string {
   if (rawDate) {
-    if (/^\d{4}-\d{2}-\d{2}$/.test(rawDate)) {
-      const [year, month, day] = rawDate.split('-').map(Number);
+    // Strip time portion for presentation — keep only the date part.
+    const dateOnly = rawDate.split('T')[0];
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateOnly)) {
+      const [year, month, day] = dateOnly.split('-').map(Number);
       const d = new Date(Date.UTC(year, month - 1, day));
       return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
     }
@@ -93,7 +128,7 @@ export async function fetchCMSPosts(): Promise<CMSPost[]> {
       title: item.title || item.data?.title || 'സീർഷകമില്ലാത്ത സൃഷ്ടി',
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'ലേഖനങ്ങൾ',
-      date: formatDisplayDate(item.date || item.data?.date, item.createdAt || item.created_at || item.publishedAt),
+      date: formatDisplayDate(extractDateString(item), extractFallbackTimestamp(item)),
       imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage || item.featuredImage || item.data?.featuredImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
@@ -142,7 +177,7 @@ export async function fetchCMSPost(id: string): Promise<CMSPost | null> {
       title: item.title || item.data?.title || '',
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'ലേഖനങ്ങൾ',
-      date: formatDisplayDate(item.date || item.data?.date, item.created_at || item.createdAt || item.publishedAt),
+      date: formatDisplayDate(extractDateString(item), extractFallbackTimestamp(item)),
       imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage || item.featuredImage || item.data?.featuredImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
@@ -177,7 +212,7 @@ export async function fetchCMSPostsClient(): Promise<CMSPost[]> {
       title: item.title || item.data?.title || 'Untitled',
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'General',
-      date: formatDisplayDate(item.date || item.data?.date, item.createdAt || item.created_at || item.publishedAt),
+      date: formatDisplayDate(extractDateString(item), extractFallbackTimestamp(item)),
       imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage || item.featuredImage || item.data?.featuredImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
@@ -201,7 +236,7 @@ export async function fetchCMSPostClient(id: string): Promise<CMSPost | null> {
       title: item.title || item.data?.title || '',
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'General',
-      date: formatDisplayDate(item.date || item.data?.date, item.created_at || item.createdAt || item.publishedAt),
+      date: formatDisplayDate(extractDateString(item), extractFallbackTimestamp(item)),
       imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage || item.featuredImage || item.data?.featuredImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
