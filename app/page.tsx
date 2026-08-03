@@ -20,11 +20,11 @@ export default function Home() {
           
           {/* Image */}
           <Image
-            src="/hero.png"
+            src="/hero2.png"
             alt="Hero"
             fill
             sizes="100vw"
-            className="object-contain object-bottom md:object-center drop-shadow-lg"
+            className="object-contain object-bottom md:object-center drop-shadow-lg translate-y-12 md:translate-y-24"
             priority
           />
           {/* Mobile bottom fade gradient */}
