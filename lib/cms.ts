@@ -60,7 +60,7 @@ function normalizeImageUrl(val: any): string {
 
 export async function fetchCMSPosts(): Promise<CMSPost[]> {
   try {
-    const res = await fetch(`${CMS_API_URL}/api/posts`, {
+    const res = await fetch(`${CMS_API_URL}/api/content/blog-posts`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -88,8 +88,8 @@ export async function fetchCMSPosts(): Promise<CMSPost[]> {
       title: item.title || item.data?.title || 'സീർഷകമില്ലാത്ത സൃഷ്ടി',
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'ലേഖനങ്ങൾ',
-      date: formatDisplayDate(item.date || item.data?.date, item.createdAt || item.created_at),
-      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage),
+      date: formatDisplayDate(item.date || item.data?.date, item.createdAt || item.created_at || item.publishedAt),
+      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage || item.featuredImage || item.data?.featuredImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
     }));
@@ -101,7 +101,7 @@ export async function fetchCMSPosts(): Promise<CMSPost[]> {
 
 export async function fetchCMSPost(id: string): Promise<CMSPost | null> {
   try {
-    const res = await fetch(`${CMS_API_URL}/api/posts/${id}`, {
+    const res = await fetch(`${CMS_API_URL}/api/content/blog-posts/${id}`, {
       headers: { 'Content-Type': 'application/json' },
       next: { revalidate: 10 },
     });
@@ -117,8 +117,8 @@ export async function fetchCMSPost(id: string): Promise<CMSPost | null> {
       title: item.title || item.data?.title || '',
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'ലേഖനങ്ങൾ',
-      date: formatDisplayDate(item.date || item.data?.date, item.created_at || item.createdAt),
-      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage),
+      date: formatDisplayDate(item.date || item.data?.date, item.created_at || item.createdAt || item.publishedAt),
+      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage || item.featuredImage || item.data?.featuredImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
     };
