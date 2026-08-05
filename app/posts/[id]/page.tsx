@@ -6,6 +6,7 @@ import { fetchCMSPost } from "@/lib/cms";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import ShareButton from "@/components/posts/ShareButton";
 
 // Fallback dummy data for when CMS has no content
 const SINGLE_IMAGE = 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1000&auto=format&fit=crop';
@@ -225,6 +226,7 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
           )}
         </div>
       </article>
+      <ShareButton title={post.title} />
     </main>
   );
 }
