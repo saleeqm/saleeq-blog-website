@@ -6,21 +6,29 @@ interface PostCardProps {
   category: string;
   title: string;
   date: string;
-  imageUrl: string;
+  imageUrl?: string;
 }
 
 export default function PostCard({ id, category, title, date, imageUrl }: PostCardProps) {
   return (
     <Link href={`/posts/${id}`} className="group bg-[#d8c5b3]/40 border border-[#c0ab90]/40 rounded-2xl overflow-hidden flex flex-col h-[380px] shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-2 block">
       {/* Image Container */}
-      <div className="w-full h-[55%] relative overflow-hidden">
-        <Image 
-          src={imageUrl} 
-          alt={title} 
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
-        />
+      <div className="w-full h-[55%] relative overflow-hidden bg-[#362a22]">
+        {imageUrl ? (
+          <Image 
+            src={imageUrl} 
+            alt={title} 
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#4a3f35] to-[#2a201a] p-4 text-center transition-transform duration-700 group-hover:scale-110">
+            <span className="text-3xl md:text-4xl font-serif font-bold text-[#e2d1bf] opacity-80 mix-blend-overlay tracking-wider uppercase drop-shadow-md">
+              {category}
+            </span>
+          </div>
+        )}
         {/* Subtle gradient overlay to smoothly transition to content */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#d8c5b3] via-transparent to-transparent opacity-60"></div>
       </div>

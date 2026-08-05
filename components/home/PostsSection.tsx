@@ -183,7 +183,7 @@ export default function PostsSection() {
             category={post.category}
             title={post.title}
             date={post.date || 'May 2025'}
-            imageUrl={post.imageUrl || IMG_NATURE}
+            imageUrl={post.imageUrl}
           />
         ))}
       </div>

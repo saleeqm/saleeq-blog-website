@@ -111,8 +111,8 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#362a22] font-bold leading-tight mb-8">
             {post.title}
           </h1>
-          {post.imageUrl && (
-            <div className="w-full h-[400px] md:h-[500px] relative rounded-3xl overflow-hidden shadow-lg">
+          <div className="w-full h-[400px] md:h-[500px] relative rounded-3xl overflow-hidden shadow-lg bg-[#362a22]">
+            {post.imageUrl ? (
               <Image 
                 src={post.imageUrl}
                 alt={post.title}
@@ -121,8 +121,14 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
                 className="object-cover"
                 priority
               />
-            </div>
-          )}
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#4a3f35] to-[#2a201a] p-8 text-center">
+                <span className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-[#e2d1bf] opacity-70 mix-blend-overlay tracking-widest uppercase drop-shadow-xl">
+                  {post.category}
+                </span>
+              </div>
+            )}
+          </div>
         </header>
 
         <div className="prose prose-lg md:prose-xl prose-stone max-w-none text-[#4a3f35] leading-relaxed font-serif">

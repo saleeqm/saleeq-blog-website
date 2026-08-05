@@ -53,7 +53,7 @@ export default function PostsPageClient({ posts }: PostsPageClientProps) {
             category={post.category}
             title={post.title}
             date={post.date || ''}
-            imageUrl={post.imageUrl || ''}
+            imageUrl={post.imageUrl}
           />
         ))}
       </div>
