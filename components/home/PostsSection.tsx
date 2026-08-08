@@ -143,30 +143,30 @@ export default function PostsSection() {
     <section id="latest-posts" className="w-full flex flex-col py-24 md:py-32">
       {/* Header */}
       <div className="mb-12 flex flex-col items-center text-center">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#362a22] font-bold mb-4">
+        <h2 className="text-4xl md:text-5xl font-display text-[var(--color-ink)] font-bold mb-4">
           ലേഖനങ്ങൾ
         </h2>
-        <div className="w-16 h-1 bg-[#362a22]/30 rounded-full mb-6"></div>
+        <div className="w-12 h-1 bg-[var(--color-laterite)] mb-6"></div>
         <div className="flex flex-col gap-2 items-center">
-          <p className="text-lg sm:text-xl font-bold text-[#5a483a] tracking-wide">
+          <p className="text-lg sm:text-xl font-bold font-display text-[var(--color-ink-light)] tracking-wide">
             യാത്രകൾ • കഥകൾ • കവിതകൾ • കുറുംകവിതകൾ • ലേഖനങ്ങൾ
           </p>
-          <p className="text-md text-[#7a6552] font-medium max-w-sm leading-relaxed italic">
+          <p className="text-md text-[var(--color-ink-light)] opacity-80 font-medium max-w-sm leading-relaxed italic font-body">
             Travels, stories, poems, short poems, and essays from life.
           </p>
         </div>
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 md:gap-4 mb-12 px-4">
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12 px-4">
         {CATEGORIES.map((category) => (
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-serif tracking-wide transition-all duration-300 cursor-pointer ${
+            className={`px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-display tracking-wide transition-all duration-300 cursor-pointer border ${
               selectedCategory === category
-                ? 'bg-[#362a22] text-[#e2d1bf] font-bold shadow-md scale-105'
-                : 'bg-[#362a22]/10 text-[#5a483a] hover:bg-[#362a22]/20 hover:text-[#362a22] font-medium'
+                ? 'bg-[var(--color-ink)] text-[var(--color-sand)] border-[var(--color-ink)] font-bold shadow-md'
+                : 'bg-transparent text-[var(--color-ink)] border-[var(--color-ink)]/20 hover:border-[var(--color-ink)] hover:bg-[var(--color-ink)]/5 font-medium'
             }`}
           >
             {category}
@@ -190,7 +190,7 @@ export default function PostsSection() {
 
       {/* Empty State fallback */}
       {!loading && filteredPosts.length === 0 && (
-        <div className="py-16 text-center text-[#7a6552] font-serif text-lg italic">
+        <div className="py-16 text-center text-[var(--color-ink-light)] font-display text-lg italic">
           ഈ വിഭാഗത്തിൽ പുതിയ സൃഷ്ടികൾ ഉടൻ പ്രതീക്ഷിക്കാം...
         </div>
       )}
@@ -199,7 +199,7 @@ export default function PostsSection() {
       <div className="mt-20 flex justify-center">
         <Link
           href="/posts"
-          className="px-8 py-3.5 bg-transparent border-2 border-[#362a22] text-[#362a22] font-bold rounded-full hover:bg-[#362a22] hover:text-[#e2d1bf] transition-colors duration-300 shadow-sm uppercase tracking-widest text-sm"
+          className="px-8 py-4 bg-transparent border border-[var(--color-ink)] text-[var(--color-ink)] font-medium hover:bg-[var(--color-ink)] hover:text-[var(--color-sand)] transition-colors duration-300 shadow-sm tracking-wide text-sm"
         >
           എല്ലാ ലേഖനങ്ങളും കാണുക
         </Link>

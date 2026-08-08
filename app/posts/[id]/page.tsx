@@ -93,25 +93,25 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
   }
 
   return (
-    <main className="relative w-full flex flex-col min-h-screen bg-[#e2d1bf]">
+    <main className="relative w-full flex flex-col min-h-screen bg-[var(--color-sand)]">
       <Header />
       
       <article className="w-full max-w-4xl mx-auto px-6 md:px-12 py-24 md:py-32">
-        <Link href="/#latest-posts" className="inline-flex items-center text-[#5a483a] hover:text-[#362a22] font-medium mb-8 transition-colors">
+        <Link href="/#latest-posts" className="inline-flex items-center text-[var(--color-ink-light)] hover:text-[var(--color-laterite)] font-medium mb-8 transition-colors">
           <span className="mr-2">←</span> തിരികെ പോകുക
         </Link>
         
         <header className="mb-12">
           <div className="flex items-center gap-4 mb-6">
-            <span className="px-3 py-1 bg-[#362a22] text-[#e2d1bf] text-sm font-semibold tracking-widest rounded-full uppercase">
+            <span className="px-3 py-1 bg-transparent border border-[var(--color-laterite)] text-[var(--color-laterite)] text-xs font-semibold tracking-widest mb-2 uppercase">
               {post.category}
             </span>
-            <time className="text-[#7a6552] font-medium">{post.date}</time>
+            <time className="text-[var(--color-ink-light)] font-medium font-body">{post.date}</time>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#362a22] font-bold leading-tight mb-8">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display text-[var(--color-ink)] font-bold leading-tight mb-8">
             {post.title}
           </h1>
-          <div className="w-full h-[400px] md:h-[500px] relative rounded-3xl overflow-hidden shadow-lg bg-[#362a22]">
+          <div className="w-full h-[400px] md:h-[500px] relative overflow-hidden shadow-lg bg-[var(--color-ink)]">
             {post.imageUrl ? (
               <Image 
                 src={post.imageUrl}
@@ -122,8 +122,8 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
                 priority
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#4a3f35] to-[#2a201a] p-8 text-center">
-                <span className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-[#e2d1bf] opacity-70 mix-blend-overlay tracking-widest uppercase drop-shadow-xl">
+              <div className="w-full h-full flex items-center justify-center bg-[var(--color-ink)] p-8 text-center">
+                <span className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-[var(--color-sand)] opacity-40 tracking-widest uppercase">
                   {post.category}
                 </span>
               </div>
@@ -131,49 +131,49 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
           </div>
         </header>
 
-        <div className="prose prose-lg md:prose-xl prose-stone max-w-none text-[#4a3f35] leading-relaxed font-serif">
+        <div className="prose prose-lg md:prose-xl max-w-none text-[var(--color-ink-light)] leading-relaxed font-body">
           {cmsPost ? (
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
               components={{
                 p: ({ children, ...props }) => (
-                  <p className="mb-6 leading-relaxed text-[#4a3f35]" {...props}>
+                  <p className="mb-6 leading-relaxed text-[var(--color-ink-light)]" {...props}>
                     {children}
                   </p>
                 ),
                 h1: ({ children, ...props }) => (
-                  <h1 className="text-3xl md:text-4xl font-bold font-serif text-[#362a22] mt-10 mb-4" {...props}>
+                  <h1 className="text-3xl md:text-4xl font-bold font-display text-[var(--color-ink)] mt-10 mb-4" {...props}>
                     {children}
                   </h1>
                 ),
                 h2: ({ children, ...props }) => (
-                  <h2 className="text-2xl md:text-3xl font-bold font-serif text-[#362a22] mt-8 mb-3" {...props}>
+                  <h2 className="text-2xl md:text-3xl font-bold font-display text-[var(--color-ink)] mt-8 mb-3" {...props}>
                     {children}
                   </h2>
                 ),
                 h3: ({ children, ...props }) => (
-                  <h3 className="text-xl md:text-2xl font-semibold font-serif text-[#362a22] mt-6 mb-2" {...props}>
+                  <h3 className="text-xl md:text-2xl font-semibold font-display text-[var(--color-ink)] mt-6 mb-2" {...props}>
                     {children}
                   </h3>
                 ),
                 h4: ({ children, ...props }) => (
-                  <h4 className="text-lg font-semibold font-serif text-[#5a483a] mt-5 mb-2" {...props}>
+                  <h4 className="text-lg font-semibold font-display text-[var(--color-ink-light)] mt-5 mb-2" {...props}>
                     {children}
                   </h4>
                 ),
                 blockquote: ({ children, ...props }) => (
-                  <blockquote className="border-l-4 border-[#a08060] pl-6 my-6 italic text-[#7a6552] text-xl font-serif" {...props}>
+                  <blockquote className="border-l-4 border-[var(--color-laterite)] pl-6 my-6 italic text-[var(--color-ink-light)] text-xl font-display" {...props}>
                     {children}
                   </blockquote>
                 ),
                 ul: ({ children, ...props }) => (
-                  <ul className="list-disc list-inside mb-6 space-y-1 text-[#4a3f35]" {...props}>
+                  <ul className="list-disc list-inside mb-6 space-y-1 text-[var(--color-ink-light)]" {...props}>
                     {children}
                   </ul>
                 ),
                 ol: ({ children, ...props }) => (
-                  <ol className="list-decimal list-inside mb-6 space-y-1 text-[#4a3f35]" {...props}>
+                  <ol className="list-decimal list-inside mb-6 space-y-1 text-[var(--color-ink-light)]" {...props}>
                     {children}
                   </ol>
                 ),
@@ -183,22 +183,22 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
                   </li>
                 ),
                 strong: ({ children, ...props }) => (
-                  <strong className="font-bold text-[#362a22]" {...props}>
+                  <strong className="font-bold text-[var(--color-ink)]" {...props}>
                     {children}
                   </strong>
                 ),
                 em: ({ children, ...props }) => (
-                  <em className="italic text-[#5a483a]" {...props}>
+                  <em className="italic text-[var(--color-ink-light)]" {...props}>
                     {children}
                   </em>
                 ),
                 hr: (props) => (
-                  <hr className="my-8 border-t-2 border-[#c4aa8a]/40" {...props} />
+                  <hr className="my-8 border-t border-[var(--color-ink)]/10" {...props} />
                 ),
                 a: ({ children, href, ...props }) => (
                   <a
                     href={href}
-                    className="text-[#7a4a2a] underline underline-offset-2 hover:text-[#362a22] transition-colors"
+                    className="text-[var(--color-laterite)] underline underline-offset-4 hover:text-[var(--color-ink)] transition-colors"
                     target={href?.startsWith('http') ? '_blank' : undefined}
                     rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
                     {...props}
@@ -207,12 +207,12 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
                   </a>
                 ),
                 code: ({ children, ...props }) => (
-                  <code className="bg-[#c4aa8a]/20 text-[#362a22] px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                  <code className="bg-[var(--color-ink)]/5 text-[var(--color-ink)] px-1.5 py-0.5 font-mono text-sm" {...props}>
                     {children}
                   </code>
                 ),
                 pre: ({ children, ...props }) => (
-                  <pre className="bg-[#362a22] text-[#e2d1bf] rounded-xl p-4 overflow-x-auto my-6 text-sm font-mono" {...props}>
+                  <pre className="bg-[var(--color-ink)] text-[var(--color-sand)] p-6 overflow-x-auto my-6 text-sm font-mono" {...props}>
                     {children}
                   </pre>
                 ),
@@ -222,7 +222,7 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
             </ReactMarkdown>
           ) : (
             <>
-              <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-[#362a22] first-letter:mr-3 first-letter:float-left mb-6 leading-relaxed">
+              <p className="first-letter:text-6xl first-letter:font-bold first-letter:text-[var(--color-laterite)] first-letter:mr-3 first-letter:float-left first-letter:font-display mb-6 leading-relaxed">
                 {post.content || post.excerpt}
               </p>
               <p className="mt-6 leading-relaxed">

@@ -28,15 +28,15 @@ export default function PostsPageClient({ posts }: PostsPageClientProps) {
   return (
     <>
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 md:gap-4 mb-12 px-4">
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12 px-4">
         {CATEGORIES.map((category) => (
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-serif tracking-wide transition-all duration-300 cursor-pointer ${
+            className={`px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-display tracking-wide transition-all duration-300 cursor-pointer border ${
               selectedCategory === category
-                ? 'bg-[#362a22] text-[#e2d1bf] font-bold shadow-md scale-105'
-                : 'bg-[#362a22]/10 text-[#5a483a] hover:bg-[#362a22]/20 hover:text-[#362a22] font-medium'
+                ? 'bg-[var(--color-ink)] text-[var(--color-sand)] border-[var(--color-ink)] font-bold shadow-md'
+                : 'bg-transparent text-[var(--color-ink)] border-[var(--color-ink)]/20 hover:border-[var(--color-ink)] hover:bg-[var(--color-ink)]/5 font-medium'
             }`}
           >
             {category}
@@ -60,7 +60,7 @@ export default function PostsPageClient({ posts }: PostsPageClientProps) {
 
       {/* Empty State */}
       {filteredPosts.length === 0 && (
-        <div className="py-16 text-center text-[#7a6552] font-serif text-lg italic">
+        <div className="py-16 text-center text-[var(--color-ink-light)] font-display text-lg italic">
           ഈ വിഭാഗത്തിൽ പുതിയ സൃഷ്ടികൾ ഉടൻ പ്രതീക്ഷിക്കാം...
         </div>
       )}

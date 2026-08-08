@@ -29,20 +29,20 @@ export default async function PostsPage() {
   const posts = cmsPosts.length > 0 ? cmsPosts : DUMMY_POSTS;
 
   return (
-    <main className="relative w-full flex flex-col min-h-screen bg-[#e2d1bf]">
+    <main className="relative w-full flex flex-col min-h-screen bg-[var(--color-sand)]">
       <Header />
 
       <section className="w-full px-6 md:px-12 lg:px-24 max-w-[1400px] mx-auto py-24 md:py-32">
         <div className="mb-12 flex flex-col items-center text-center">
-          <h1 className="text-5xl md:text-6xl font-serif text-[#362a22] font-bold mb-4">
+          <h1 className="text-5xl md:text-6xl font-display text-[var(--color-ink)] font-bold mb-4">
             എല്ലാ ലേഖനങ്ങളും
           </h1>
-          <div className="w-16 h-1 bg-[#362a22]/30 rounded-full mb-6"></div>
+          <div className="w-12 h-1 bg-[var(--color-laterite)] mb-6"></div>
           <div className="flex flex-col gap-2 items-center">
-            <p className="text-lg sm:text-xl font-bold text-[#5a483a] tracking-wide">
+            <p className="text-lg sm:text-xl font-bold font-display text-[var(--color-ink-light)] tracking-wide">
               യാത്രകൾ • കഥകൾ • കവിതകൾ • കുറുംകവിതകൾ • ലേഖനങ്ങൾ
             </p>
-            <p className="text-md text-[#7a6552] font-medium max-w-sm leading-relaxed italic">
+            <p className="text-md text-[var(--color-ink-light)] opacity-80 font-medium max-w-sm leading-relaxed italic font-body">
               ഇതുവരെ എഴുതിയ എല്ലാ സൃഷ്ടികളും ഇവിടെ വായിക്കാം.
             </p>
           </div>

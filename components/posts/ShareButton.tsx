@@ -42,7 +42,7 @@ export default function ShareButton({ title }: ShareButtonProps) {
   return (
     <button
       onClick={handleShare}
-      className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-14 h-14 bg-[#362a22] text-[#e2d1bf] rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-[#4a3f35] transition-all duration-300 hover:-translate-y-1 group hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)]"
+      className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-14 h-14 bg-[var(--color-ink)] text-[var(--color-sand)] rounded-none shadow-[4px_4px_0_0_var(--color-laterite)] hover:bg-[var(--color-laterite)] hover:shadow-[2px_2px_0_0_var(--color-ink)] transition-all duration-300 hover:-translate-y-1 group"
       aria-label="Share this post"
     >
       {copied ? (
@@ -59,9 +59,9 @@ export default function ShareButton({ title }: ShareButtonProps) {
         </svg>
       )}
       
-      <span className="absolute -top-12 bg-[#362a22] text-[#e2d1bf] text-xs font-medium px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-md">
+      <span className="absolute -top-12 bg-[var(--color-ink)] text-[var(--color-sand)] font-body text-xs font-medium px-3 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
         {copied ? "Link Copied!" : "Share Post"}
-        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#362a22] rotate-45"></span>
+        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[var(--color-ink)] rotate-45"></span>
       </span>
     </button>
   );
