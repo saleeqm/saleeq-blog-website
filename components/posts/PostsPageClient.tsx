@@ -11,6 +11,8 @@ const CATEGORIES = [
   'കവിതകൾ',
   'കുറുംകവിതകൾ',
   'ലേഖനങ്ങൾ',
+  'പലവക',
+  'എന്റെ ലോകം',
 ];
 
 interface PostsPageClientProps {

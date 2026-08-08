@@ -18,6 +18,8 @@ const CATEGORIES = [
   'കവിതകൾ',
   'കുറുംകവിതകൾ',
   'ലേഖനങ്ങൾ',
+  'പലവക',
+  'എന്റെ ലോകം',
 ];
 
 const DUMMY_POSTS = [
@@ -105,6 +107,20 @@ const DUMMY_POSTS = [
     date: 'Apr 10, 2025',
     imageUrl: IMG_WRITING,
   },
+  {
+    id: 13,
+    category: 'പലവക',
+    title: 'ഓർമ്മച്ചെപ്പിലെ ചില ഏടുകൾ',
+    date: 'Apr 5, 2025',
+    imageUrl: IMG_MIST,
+  },
+  {
+    id: 14,
+    category: 'എന്റെ ലോകം',
+    title: 'പുതിയ തുടക്കങ്ങൾ',
+    date: 'Apr 1, 2025',
+    imageUrl: IMG_POETRY,
+  },
 ];
 
 export default function PostsSection() {
@@ -149,7 +165,7 @@ export default function PostsSection() {
         <div className="w-12 h-1 bg-[var(--color-laterite)] mb-6"></div>
         <div className="flex flex-col gap-2 items-center">
           <p className="text-lg sm:text-xl font-bold font-display text-[var(--color-ink-light)] tracking-wide">
-            യാത്രകൾ • കഥകൾ • കവിതകൾ • കുറുംകവിതകൾ • ലേഖനങ്ങൾ
+            യാത്രകൾ • കഥകൾ • കവിതകൾ • കുറുംകവിതകൾ • ലേഖനങ്ങൾ • പലവക • എന്റെ ലോകം
           </p>
           <p className="text-md text-[var(--color-ink-light)] opacity-80 font-medium max-w-sm leading-relaxed italic font-body">
             Travels, stories, poems, short poems, and essays from life.

@@ -21,6 +21,8 @@ const DUMMY_POSTS = [
   { id: 10, category: 'കുറുംകവിതകൾ',   title: 'നിഴലും നിലാവും',                   date: 'Apr 18, 2025', imageUrl: IMG_COFFEE,   slug: '' },
   { id: 11, category: 'കവിതകൾ',        title: 'മനസ്സിന്റെ പേജുകള്‍',              date: 'Apr 15, 2025', imageUrl: IMG_NATURE,   slug: '' },
   { id: 12, category: 'ലേഖനങ്ങൾ',       title: 'ചരിത്രം ഉറങ്ങാത്ത മോങ്ങം',        date: 'Apr 10, 2025', imageUrl: IMG_WRITING,  slug: '' },
+  { id: 13, category: 'പലവക',           title: 'ഓർമ്മച്ചെപ്പിലെ ചില ഏടുകൾ',       date: 'Apr 5, 2025',  imageUrl: IMG_MIST,     slug: '' },
+  { id: 14, category: 'എന്റെ ലോകം',      title: 'പുതിയ തുടക്കങ്ങൾ',                 date: 'Apr 1, 2025',  imageUrl: IMG_POETRY,   slug: '' },
 ];
 
 export default async function PostsPage() {
@@ -40,7 +42,7 @@ export default async function PostsPage() {
           <div className="w-12 h-1 bg-[var(--color-laterite)] mb-6"></div>
           <div className="flex flex-col gap-2 items-center">
             <p className="text-lg sm:text-xl font-bold font-display text-[var(--color-ink-light)] tracking-wide">
-              യാത്രകൾ • കഥകൾ • കവിതകൾ • കുറുംകവിതകൾ • ലേഖനങ്ങൾ
+              യാത്രകൾ • കഥകൾ • കവിതകൾ • കുറുംകവിതകൾ • ലേഖനങ്ങൾ • പലവക • എന്റെ ലോകം
             </p>
             <p className="text-md text-[var(--color-ink-light)] opacity-80 font-medium max-w-sm leading-relaxed italic font-body">
               ഇതുവരെ എഴുതിയ എല്ലാ സൃഷ്ടികളും ഇവിടെ വായിക്കാം.
