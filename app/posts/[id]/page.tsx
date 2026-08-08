@@ -2,6 +2,7 @@ import Header from "@/components/layout/Header";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata, ResolvingMetadata } from "next";
 import { fetchCMSPost } from "@/lib/cms";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -61,6 +62,50 @@ const DUMMY_POSTS = [
     content: 'ഓരോ മനുഷ്യന്റെയും മനസ്സ് ഒരു പുസ്തകമാണ്. ആ പുസ്തകത്തിലെ പേജുകളിൽ എഴുതപ്പെട്ട രഹസ്യങ്ങളും സ്വപ്നങ്ങളും നിറഞ്ഞ ഒരു കവിത.',
   },
 ];
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ id: string }> },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const resolvedParams = await params;
+  const idParam = resolvedParams.id;
+
+  const cmsPost = await fetchCMSPost(idParam);
+
+  const numericId = parseInt(idParam, 10);
+  const dummyPost = !isNaN(numericId)
+    ? DUMMY_POSTS.find((p) => p.id === numericId)
+    : undefined;
+
+  const post = cmsPost ?? dummyPost;
+
+  if (!post) {
+    return {
+      title: 'Post Not Found',
+    };
+  }
+
+  const description = post.excerpt || (post.content ? post.content.substring(0, 160) + '...' : "Read this post on Mongatthukaran's Journal");
+
+  return {
+    title: post.title,
+    description: description,
+    openGraph: {
+      title: post.title,
+      description: description,
+      url: `/posts/${idParam}`,
+      images: post.imageUrl ? [post.imageUrl] : [],
+      type: 'article',
+      publishedTime: post.date,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: description,
+      images: post.imageUrl ? [post.imageUrl] : [],
+    },
+  };
+}
 
 export default async function PostPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
