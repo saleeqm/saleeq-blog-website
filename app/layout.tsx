@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: ['/saleeq-metaicon.jpeg'],
   },
+  icons: {
+    icon: '/favicon1.png',
+  },
 };
 
 export default function RootLayout({
