@@ -144,7 +144,7 @@ export default function PostsSection() {
       {/* Header */}
       <div className="mb-12 flex flex-col items-center text-center">
         <h2 className="text-4xl md:text-5xl font-display text-[var(--color-ink)] font-bold mb-4">
-          ലേഖനങ്ങൾ
+          അക്ഷരലോകം
         </h2>
         <div className="w-12 h-1 bg-[var(--color-laterite)] mb-6"></div>
         <div className="flex flex-col gap-2 items-center">
