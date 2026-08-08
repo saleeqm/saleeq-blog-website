@@ -138,7 +138,7 @@ export async function fetchCMSPosts(): Promise<CMSPost[]> {
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'ലേഖനങ്ങൾ',
       date: formatDisplayDate(extractDateString(item), extractFallbackTimestamp(item)),
-      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage || item.featuredImage || item.data?.featuredImage),
+      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.image || item.data?.image || item.coverImage || item.featuredImage || item.data?.featuredImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
     }));
@@ -187,7 +187,7 @@ export async function fetchCMSPost(id: string): Promise<CMSPost | null> {
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'ലേഖനങ്ങൾ',
       date: formatDisplayDate(extractDateString(item), extractFallbackTimestamp(item)),
-      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage || item.featuredImage || item.data?.featuredImage),
+      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.image || item.data?.image || item.coverImage || item.featuredImage || item.data?.featuredImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
     };
@@ -222,7 +222,7 @@ export async function fetchCMSPostsClient(): Promise<CMSPost[]> {
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'General',
       date: formatDisplayDate(extractDateString(item), extractFallbackTimestamp(item)),
-      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage || item.featuredImage || item.data?.featuredImage),
+      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.image || item.data?.image || item.coverImage || item.featuredImage || item.data?.featuredImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
     }));
@@ -246,7 +246,7 @@ export async function fetchCMSPostClient(id: string): Promise<CMSPost | null> {
       slug: item.slug || item.data?.slug || '',
       category: item.category || item.data?.category || 'General',
       date: formatDisplayDate(extractDateString(item), extractFallbackTimestamp(item)),
-      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.coverImage || item.featuredImage || item.data?.featuredImage),
+      imageUrl: normalizeImageUrl(item.imageUrl || item.data?.imageUrl || item.image || item.data?.image || item.coverImage || item.featuredImage || item.data?.featuredImage),
       excerpt: item.excerpt || item.data?.excerpt || '',
       content: item.content || item.data?.content || '',
     };
