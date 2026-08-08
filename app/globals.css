@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Manjari:wght@400;700&family=Noto+Serif+Malayalam:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Manjari:wght@400;700&family=Noto+Serif+Malayalam:wght@300;400;600;700&display=swap');
 @import "tailwindcss";
 
 @theme inline {
@@ -11,7 +11,7 @@
   
   --font-display: 'Noto Serif Malayalam', serif;
   --font-body: 'Manjari', sans-serif;
-  --font-logo: 'Cinzel', serif;
+  --font-logo: 'Great Vibes', cursive;
 }
 
 body {

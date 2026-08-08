@@ -30,7 +30,7 @@ export default function Home() {
         {/* Hero Content */}
         <div className="relative z-20 w-full px-6 md:px-16 lg:px-24 max-w-[1400px] mx-auto flex flex-col justify-start md:justify-center h-auto md:h-screen text-center md:text-left pt-8 md:pt-0 pb-0">
           <div className="max-w-md sm:max-w-xl md:max-w-2xl flex flex-col items-center md:items-start">
-            <h2 className="text-sm md:text-base font-logo uppercase tracking-widest text-[var(--color-ink-light)] mb-4 md:mb-6">
+            <h2 className="text-sm md:text-base font-body uppercase tracking-widest text-[var(--color-ink-light)] mb-4 md:mb-6">
               Mongatthukaran&apos;s Journal
             </h2>
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display text-[var(--color-ink)] font-bold leading-[1.1] mb-6 md:mb-8">
@@ -41,7 +41,7 @@ export default function Home() {
               ജീവിതം, സംസ്കാരം, ഒപ്പം എന്റെ ചിന്തകളും അനുഭവങ്ങളും നിങ്ങളുമായി പങ്കുവെക്കുന്നു.
             </p>
             <a href="#latest-posts" className="inline-block px-8 py-4 bg-[var(--color-ink)] text-[var(--color-sand)] hover:bg-[var(--color-laterite)] transition-colors duration-300 shadow-sm text-base md:text-lg font-medium tracking-wide">
-              ലേഖനങ്ങൾ വായിക്കുക
+              അക്ഷരലോകത്തേക്ക് സ്വാഗതം
             </a>
           </div>
         </div>
