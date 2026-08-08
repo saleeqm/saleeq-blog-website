@@ -77,7 +77,7 @@ export async function generateMetadata(
     ? DUMMY_POSTS.find((p) => p.id === numericId)
     : undefined;
 
-  const post = cmsPost ?? dummyPost;
+  const post = cmsPost ?? (dummyPost as any);
 
   if (!post) {
     return {
