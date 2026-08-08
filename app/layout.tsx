@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   title: "Mongatthukaran | എന്റെ അക്ഷരലോകം",
   description:
     "യാത്രകൾ, കഥകൾ, കവിതകൾ, കുറുംകവിതകൾ, ലേഖനങ്ങൾ - മോങ്ങത്തുകാരന്റെ അക്ഷരലോകത്തേക്ക് സ്വാഗതം. Malayalam literary blog by Mongatthukaran featuring stories, travelogues, poems, and essays.",
+  openGraph: {
+    images: ['/saleeq-metaicon.jpeg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/saleeq-metaicon.jpeg'],
+  },
 };
 
 export default function RootLayout({

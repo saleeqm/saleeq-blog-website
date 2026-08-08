@@ -97,7 +97,7 @@ export async function generateMetadata(
       title: post.title,
       description: description,
       url: `/posts/${idParam}`,
-      images: post.imageUrl ? [post.imageUrl] : [],
+      images: post.imageUrl ? [post.imageUrl] : ['/saleeq-metaicon.jpeg'],
       type: 'article',
       publishedTime: post.date,
     },
@@ -105,7 +105,7 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: post.title,
       description: description,
-      images: post.imageUrl ? [post.imageUrl] : [],
+      images: post.imageUrl ? [post.imageUrl] : ['/saleeq-metaicon.jpeg'],
     },
   };
 }
