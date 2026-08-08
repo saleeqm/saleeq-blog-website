@@ -84,17 +84,26 @@ function normalizeImageUrl(val: any): string {
   }
   const str = String(val).trim();
   if (!str) return '';
+  const isLocalCMS = CMS_API_URL.includes('localhost') || CMS_API_URL.includes('127.0.0.1');
+
   // CMS returns relative paths like /files/uploads/... for uploaded media.
-  // Rewrite them to /cms-files/... so Next.js proxies the request to the CMS
-  // backend — avoiding its private-IP SSRF guard on the image optimizer.
+  // Locally, rewrite to /cms-files/... to bypass Next.js private-IP SSRF guard.
+  // In production, return the direct absolute URL since Next.js can optimize public URLs directly.
   if (str.startsWith('/files/')) {
-    return `/cms-files/${str.slice('/files/'.length)}`;
+    if (isLocalCMS) {
+      return `/cms-files/${str.slice('/files/'.length)}`;
+    }
+    return `${CMS_API_URL}${str}`;
   }
+  
   // Handle full http://localhost:8787/files/... URLs returned in some CMS versions
   if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/files\//.test(str)) {
-    const url = new URL(str);
-    return `/cms-files/${url.pathname.slice('/files/'.length)}`;
+    if (isLocalCMS) {
+      const url = new URL(str);
+      return `/cms-files/${url.pathname.slice('/files/'.length)}`;
+    }
   }
+  
   return str;
 }
 
