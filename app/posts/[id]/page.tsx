@@ -85,7 +85,10 @@ export async function generateMetadata(
     };
   }
 
-  const description = post.excerpt || (post.content ? post.content.substring(0, 160) + '...' : "Read this post on Mongatthukaran's Journal");
+  let rawText = post.excerpt || post.content || '';
+  // Strip HTML tags using regex
+  let cleanText = rawText.replace(/<[^>]*>?/gm, '').trim();
+  const description = cleanText ? (cleanText.length > 160 ? cleanText.substring(0, 160) + '...' : cleanText) : "Read this post on Mongatthukaran's Journal";
 
   return {
     title: post.title,
