@@ -217,7 +217,7 @@ export default function PostsSection() {
           href="/posts"
           className="px-8 py-4 bg-transparent border border-[var(--color-ink)] text-[var(--color-ink)] font-medium hover:bg-[var(--color-ink)] hover:text-[var(--color-sand)] transition-colors duration-300 shadow-sm tracking-wide text-sm"
         >
-          എല്ലാ ലേഖനങ്ങളും കാണുക
+          കൂടുതൽ കാണുക
         </Link>
       </div>
     </section>
